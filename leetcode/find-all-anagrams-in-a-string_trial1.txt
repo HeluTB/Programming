@@ -1,0 +1,25 @@
+from collections import Counter
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        n = len(s)
+        m = len(p)
+        if n < m:
+            return []
+        
+        s_count = Counter()
+        p_count = Counter(p)
+        res = []
+
+        for i in range(n):
+            s_count[s[i]] += 1
+            if i >= m:
+                l_char = s[i - m]
+                if s_count[l_char] == 1:
+                    del s_count[l_char]
+                else:
+                    s_count[l_char] -= 1
+            
+            if s_count == p_count:
+                res.append(i - m + 1)
+        
+        return res
