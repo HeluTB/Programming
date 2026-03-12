@@ -1,0 +1,26 @@
+class Solution:
+    def maximumSubarraySum(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        max_sum = 0
+        cur_sum = 0
+        window_elements = set()
+        l = 0
+
+        for r in range(n):
+            while nums[r] in window_elements:
+                window_elements.remove(nums[l])
+                cur_sum -= nums[l]
+                l += 1
+            
+            window_elements.add(nums[r])
+            cur_sum += nums[r]
+
+            if r - l + 1 > k:
+                cur_sum -= nums[l]
+                window_elements.remove(nums[l])
+                l += 1
+
+            if r - l + 1 == k:
+                max_sum = max(max_sum, cur_sum)
+            
+        return max_sum
