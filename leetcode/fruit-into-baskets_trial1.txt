@@ -1,0 +1,24 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        n = len(fruits)
+        basket = {}
+        l = 0
+        max_fruits = 0
+
+        for r in range(n):
+            fruit_type = fruits[r]
+            basket[fruit_type] = basket.get(fruit_type, 0) + 1
+
+            while len(basket) > 2:
+                left_fruit = fruits[l]
+                basket[left_fruit] -= 1
+
+                if basket[left_fruit] == 0:
+                    del basket[left_fruit]
+                
+                l += 1
+            
+            max_fruits = max(max_fruits, r - l + 1)
+        
+        return max_fruits
+        
