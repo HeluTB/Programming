@@ -1,0 +1,31 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        m = len(s)
+        n = len(t)
+        target_counts = Counter(t)
+        required = len(target_counts)
+        window_counts = {}
+        formed = 0
+        res = (float("inf"), None, None)
+        
+        l = 0
+        for r in range(m):
+            char = s[r]
+            window_counts[char] = window_counts.get(char, 0) + 1
+
+            if char in target_counts and window_counts[char] == target_counts[char]:
+                formed += 1
+            
+            while l <= r and formed == required:
+                char = s[l]
+                if r - l + 1 < res[0]:
+                    res = (r - l + 1, l, r)
+                
+                window_counts[char] -= 1
+                if char in target_counts and window_counts[char] < target_counts[char]:
+                    formed -= 1
+                
+                l += 1
+        
+        return "" if res[0] == float("inf") else s[res[1]:res[2] + 1]
+        
