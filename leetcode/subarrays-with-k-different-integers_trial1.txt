@@ -1,0 +1,20 @@
+class Solution:
+    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
+        def at_most(a):
+            #if a == 0: return 0
+            count = defaultdict(int)
+            l, res, n = 0, 0, len(nums)
+
+            for r in range(n):
+                count[nums[r]] += 1
+
+                while len(count) > a:
+                    count[nums[l]] -= 1
+                    if not count[nums[l]]:
+                        count.pop(nums[l])
+                    l += 1
+                
+                res += (r - l + 1)
+            return res
+        
+        return at_most(k) - at_most(k - 1)
