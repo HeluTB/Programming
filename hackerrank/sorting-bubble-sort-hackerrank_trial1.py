@@ -1,3 +1,8 @@
+import math
+import os
+import random
+import re
+import sys
 def countSwaps(a):
     n = len(a)
     count = 0
