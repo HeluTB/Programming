@@ -9,13 +9,14 @@ class Solution:
             prefix[l] += val
             prefix[r + 1] -= val
         
-        res = list(s)
-        ops = 0
-        for i in range(n):
-            ops += prefix[i]
-            p_original = ord(s[i]) - ord('a')
-            p_new = (p_original + ops) % 26
+        for i in range(1, n):
+            prefix[i] += prefix[i - 1]
 
-            res[i] = chr(ord('a') + p_new)
+        res = []
+        for i in range(n):
+            char = ord(s[i]) - 97
+            p_new = (char + prefix[i]) % 26
+
+            res.append(chr(p_new + 97))
         
         return ("".join(res))
