@@ -1,0 +1,17 @@
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        remainder = {0: -1}
+        cur_sum = 0
+
+        for i, n in enumerate(nums):
+            cur_sum += n
+            rem = cur_sum % k
+            print(rem)
+            if rem in remainder:
+                if i - remainder[rem] >= 2:
+                    return True
+            else:
+                remainder[rem] = i
+                
+        
+        return False
