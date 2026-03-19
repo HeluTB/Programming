@@ -6,12 +6,10 @@ class Solution:
         for i, n in enumerate(nums):
             cur_sum += n
             rem = cur_sum % k
-            print(rem)
             if rem in remainder:
-                if i - remainder[rem] >= 2:
+                if i - remainder[rem] > 1:
                     return True
             else:
                 remainder[rem] = i
                 
-        
         return False
