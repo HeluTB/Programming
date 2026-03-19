@@ -1,0 +1,16 @@
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        n = len(nums)
+        uniques = sorted(set(nums))
+        m = len(uniques)
+        ans, r = n, 0
+
+        for l in range(m):
+            target = uniques[l] + n - 1
+
+            while r < m and uniques[r] <= target:
+                r += 1
+            
+            ans = min(ans, n - r + l)
+        
+        return ans
