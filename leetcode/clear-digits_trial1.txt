@@ -1,0 +1,14 @@
+class Solution:
+    def clearDigits(self, s: str) -> str:
+        digit_idx = -1
+        n = len(s)
+        for i in range(n):
+            if s[i].isdigit():
+                digit_idx = i
+                break
+        
+        if digit_idx == -1:
+            return s
+            
+        new_s = s[:digit_idx-1] + s[digit_idx+1:]
+        return self.clearDigits(new_s)
